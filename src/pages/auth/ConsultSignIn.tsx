@@ -27,7 +27,6 @@ export function ConsultSignIn() {
     } else if (mode === 'register') {
       const result = await auth.signUp(form);
       setNotice(result.error || (result.existingAccount ? 'This account already exists. Please sign in.' : result.needsVerification ? 'Check your email to verify your account.' : 'Account created. Your Consult access will appear when activated.'));
-      if (!result.error && !result.needsVerification && !result.existingAccount) navigate(destination);
     } else {
       const error = await auth.signIn(form.email, form.password);
       if (error) setNotice(error); else navigate(destination);
