@@ -76,6 +76,7 @@ const productNavs: Record<ProductKey, NavItem[]> = {
   ],
   consult: [
     { label: 'Home', href: platformUrl('consult') },
+    { label: 'Dashboard', href: '/consult/portal' },
     {
       label: 'Services', href: '/consult/services',
       children: [
@@ -89,10 +90,9 @@ const productNavs: Record<ProductKey, NavItem[]> = {
     { label: 'Book Consultation', href: '/consult/book' },
     { label: 'Get a Quote', href: '/consult/quote' },
     { label: 'Hire Us', href: '/consult/hire' },
-    { label: 'Client Portal', href: '/consult/portal' },
     { label: 'Operations', href: '/consult/operations' },
-    { label: 'Contact', href: '/consult/contact' },
-    { label: 'Support', href: '/consult/support' },
+    { label: 'Payments', href: '/consult/payments' },
+    { label: 'Get in Touch', href: '/consult/get-in-touch' },
   ],
   host: [
     { label: 'Home', href: platformUrl('host') },
