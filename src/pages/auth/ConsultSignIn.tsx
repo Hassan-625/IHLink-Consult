@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PageShell } from '@/components/PageShell';
 import { Button } from '@/components/ui/Button';
@@ -16,6 +16,7 @@ export function ConsultSignIn() {
   const [form, setForm] = useState({ email: '', password: '', firstName: '', middleName: '', lastName: '', phone: '', sex: '', newsletterOptIn: false });
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
+  useEffect(() => { if (mode === 'signin' && auth.user && !auth.loading) navigate(destination, { replace: true }); }, [mode, auth.user, auth.loading, navigate, destination]);
   async function submit(event: FormEvent) {
     event.preventDefault(); setBusy(true); setNotice('');
     if (mode === 'reset') {
