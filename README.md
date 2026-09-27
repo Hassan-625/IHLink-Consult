@@ -12,3 +12,6 @@ Independent consulting frontend.
 - Cross-platform access: controlled by shared IHLink entitlements and RLS
 
 This repository is extracted from `IHLink_Design_System_1` while the original repository remains the migration reference until production verification is complete.
+
+
+<!-- standalone production trigger: 2026-09-27 -->
