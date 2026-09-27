@@ -58,7 +58,7 @@ export function ConsultHome() {
           </div>
         </div>
       </section>
-      <ExperiencePhoto src="/images/software-consulting.jpg" alt="A software engineer working with code across multiple screens" eyebrow="Software and AI expertise" title="Work directly with specialists who understand your technical goals" text="We bring strategy, software, AI and cloud expertise together so your project moves from conversation to a useful, maintainable solution." accentClass="text-orange-600" />
+      <ExperiencePhoto src={hero?.image_url || "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1600&q=85"} alt="A software engineer working with code across multiple screens" eyebrow="Software and AI expertise" title="Work directly with specialists who understand your technical goals" text="We bring strategy, software, AI and cloud expertise together so your project moves from conversation to a useful, maintainable solution." accentClass="text-orange-600" />
       <section className="px-6 lg:px-12 py-16 lg:py-20">
         <SectionTitle
           eyebrow="What we build"
