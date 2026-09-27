@@ -15,3 +15,5 @@ This repository is extracted from `IHLink_Design_System_1` while the original re
 
 
 <!-- standalone production trigger: 2026-09-27 -->
+
+<!-- redeploy after verified standalone UI dependencies -->
