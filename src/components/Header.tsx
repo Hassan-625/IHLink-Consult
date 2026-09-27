@@ -152,7 +152,7 @@ export function Header({ product = 'corporate', showAnnouncement = true, announc
     <>
       {showAnnouncement && (
         <div className={`${theme.announcementBg} ${theme.announcementText} text-xs font-medium px-4 py-2 text-center`}>
-          {announcementText || 'Welcome to IHLink Co. Ltd. — Connecting People, Businesses and Education Through Technology'}
+          {announcementText || (product === 'consult' ? 'IHLink Consult — Software, AI, Cloud and Engineering Services' : 'Welcome to IHLink Co. Ltd. — Connecting People, Businesses and Education Through Technology')}
         </div>
       )}
       <header className="sticky top-0 z-40 glass border-b border-border">
