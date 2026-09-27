@@ -16,6 +16,8 @@ export function ConsultAccount() {
   const [details, setDetails] = useState<Details>(empty);
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
+  const [appearance, setAppearance] = useState<'light'|'system'|'dark'>(() => (localStorage.getItem('ihlink-appearance') as 'light'|'system'|'dark') || 'system');
+  useEffect(() => { document.documentElement.dataset.appearance = appearance; localStorage.setItem('ihlink-appearance', appearance); }, [appearance]);
   useEffect(() => {
     if (!supabase || !user) return;
     void supabase.from('profiles').select('first_name,middle_name,last_name,phone,sex,newsletter_opt_in').eq('id', user.id).single()
@@ -47,6 +49,6 @@ export function ConsultAccount() {
       <label className="flex items-center gap-2 text-sm sm:col-span-2"><input type="checkbox" checked={Boolean(details.newsletter_opt_in)} onChange={e => setDetails({ ...details, newsletter_opt_in: e.target.checked })}/>Receive IHLink updates by email</label>
       <div className="sm:col-span-2"><Button disabled={busy}>{busy ? 'Saving…' : 'Save changes'}</Button></div>
     </form></Card>
-    {settings && <Card className="mt-6"><h2 className="font-bold">Password and access</h2><p className="mt-2 text-sm text-muted">Your Consult access is managed through your IHLink account.</p><Link className="mt-4 inline-block font-bold text-orange-700" to="/reset-password">Reset password</Link></Card>}
+    {settings && <><Card className="mt-6"><h2 className="font-bold">Appearance</h2><p className="mt-2 text-sm text-muted">Choose how the standalone Consult workspace appears on this device.</p><div className="mt-4 flex flex-wrap gap-3">{(['light','system','dark'] as const).map(mode => <Button key={mode} type="button" variant={appearance===mode?'primary':'secondary'} onClick={() => setAppearance(mode)}>{mode[0].toUpperCase()+mode.slice(1)}</Button>)}</div></Card><Card className="mt-6"><h2 className="font-bold">Password and access</h2><p className="mt-2 text-sm text-muted">Your Consult access is managed through your IHLink account.</p><Link className="mt-4 inline-block font-bold text-orange-700" to="/reset-password">Reset password</Link></Card></>}
   </main></PageShell>;
 }
