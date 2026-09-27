@@ -38,7 +38,7 @@ export function SupportTicketForm({
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (!user) {
-      navigate("/signin", { state: { from: window.location.pathname } });
+      navigate(`/signin?next=${encodeURIComponent(window.location.pathname)}`);
       return;
     }
     if (!supabase) return;
