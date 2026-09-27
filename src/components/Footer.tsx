@@ -142,7 +142,7 @@ const footerLinks: Record<ProductKey, { title: string; links: { label: string; h
       title: 'Resources',
       links: [
         { label: 'Client Portal', href: '/consult/portal' },
-        { label: 'Support', href: '/support' },
+        { label: 'Support', href: '/consult/support' }, { label: 'Contact', href: '/consult/contact' },
         { label: 'Sign In', href: '/signin' },
         { label: 'IHLink Home', href: '/' },
       ],

@@ -16,9 +16,11 @@ type SupportProduct =
 export function SupportTicketForm({
   product,
   accentClass = "bg-royal-600 hover:bg-royal-700",
+  onCreated,
 }: {
   product: SupportProduct;
   accentClass?: string;
+  onCreated?: () => void;
 }) {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -51,6 +53,7 @@ export function SupportTicketForm({
     if (error) setNotice(error.message);
     else {
       setNotice(`Ticket ${data.ticket_number} was created successfully.`);
+      onCreated?.();
       setForm({
         subject: "",
         category: "general",
