@@ -41,7 +41,7 @@ export function ConsultHome() {
               </Link>
             </div>
           </div>
-          <div><div className="mb-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3"><img src={IH_LINK_LOGO} alt="IHLink" className="h-11 w-11 rounded-xl bg-white object-contain p-1"/><div><b className="block">IHLink Consult</b><span className="text-xs text-white/60">Software • AI • Cloud</span></div></div><div className="grid grid-cols-2 gap-4">
+          <div><figure className="mb-6"><div role="img" aria-label="IHLink Consult branded service illustration" className="aspect-[4/3] rounded-2xl bg-no-repeat" style={{backgroundImage:'url(/images/ihlink-service-scene.webp)',backgroundSize:'270% auto',backgroundPosition:'53% 22%'}}/><figcaption className="mt-2 text-xs text-white/60">IHLink service illustration.</figcaption></figure><div className="mb-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3"><img src={IH_LINK_LOGO} alt="IHLink" className="h-11 w-11 rounded-xl bg-white object-contain p-1"/><div><b className="block">IHLink Consult</b><span className="text-xs text-white/60">Software • AI • Cloud</span></div></div><div className="grid grid-cols-2 gap-4">
             {[
               "Software & Product Engineering",
               "AI, Data & Automation",
