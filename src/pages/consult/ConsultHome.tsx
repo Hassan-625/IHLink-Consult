@@ -1,3 +1,4 @@
+import {ServiceGuide} from '@/components/ServiceGuide';
 import { ArrowRight, CheckCircle2, PlayCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PageShell } from "@/components/PageShell";
@@ -41,7 +42,7 @@ export function ConsultHome() {
               </Link>
             </div>
           </div>
-          <div><figure className="mb-6"><div role="img" aria-label="IHLink Consult branded service illustration" className="aspect-[4/3] rounded-2xl bg-no-repeat" style={{backgroundImage:'url(/images/ihlink-service-scene.webp)',backgroundSize:'270% auto',backgroundPosition:'53% 22%'}}/><figcaption className="mt-2 text-xs text-white/60">IHLink service illustration.</figcaption></figure><div className="mb-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3"><img src={IH_LINK_LOGO} alt="IHLink" className="h-11 w-11 rounded-xl bg-white object-contain p-1"/><div><b className="block">IHLink Consult</b><span className="text-xs text-white/60">Software • AI • Cloud</span></div></div><div className="grid grid-cols-2 gap-4">
+          <div><figure className="mb-6"><img src="/images/service-scene-clean.webp" alt="IHLink Consult team service illustration" width="1672" height="941" className="block h-auto w-full rounded-2xl"/><figcaption className="mt-2 text-xs text-white/60">IHLink service illustration.</figcaption></figure><div className="mb-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3"><img src={IH_LINK_LOGO} alt="IHLink" className="h-11 w-11 rounded-xl bg-white object-contain p-1"/><div><b className="block">IHLink Consult</b><span className="text-xs text-white/60">Software • AI • Cloud</span></div></div><div className="grid grid-cols-2 gap-4">
             {[
               "Software & Product Engineering",
               "AI, Data & Automation",
@@ -59,7 +60,7 @@ export function ConsultHome() {
           </div></div>
         </div>
       </section>
-      <ExperiencePhoto src={hero?.image_url || "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1600&q=85"} alt="A software engineer working with code across multiple screens" eyebrow="Software and AI expertise" title="Work directly with specialists who understand your technical goals" text="We bring strategy, software, AI and cloud expertise together so your project moves from conversation to a useful, maintainable solution." accentClass="text-orange-600" />
+      <ServiceGuide/><ExperiencePhoto src={hero?.image_url || "/images/service-scene-clean.webp"} alt="IHLink Consult team service illustration" eyebrow="Software and AI expertise" title="Work directly with specialists who understand your technical goals" text="We bring strategy, software, AI and cloud expertise together so your project moves from conversation to a useful, maintainable solution." accentClass="text-orange-600" />
       <section className="px-6 lg:px-12 py-16 lg:py-20">
         <SectionTitle
           eyebrow="What we build"
