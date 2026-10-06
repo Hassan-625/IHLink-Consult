@@ -16,7 +16,7 @@ export function ConsultSignIn() {
   const [form, setForm] = useState({ email: '', password: '', firstName: '', middleName: '', lastName: '', phone: '', sex: '', newsletterOptIn: false });
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
-  useEffect(() => { if (mode === 'signin' && auth.user && !auth.loading) navigate(destination, { replace: true }); }, [mode, auth.user, auth.loading, navigate, destination]);
+  useEffect(() => { if (mode === 'signin' && auth.user && !auth.loading && auth.profile?.id === auth.user.id && !auth.authError) navigate(destination, { replace: true }); }, [mode, auth.user, auth.profile, auth.loading, auth.authError, navigate, destination]);
   async function submit(event: FormEvent) {
     event.preventDefault(); setBusy(true); setNotice('');
     if (mode === 'reset') {
@@ -30,13 +30,13 @@ export function ConsultSignIn() {
       setNotice(result.error || (result.existingAccount ? 'This account already exists. Please sign in.' : result.needsVerification ? 'Check your email to verify your account.' : 'Account created. Your Consult access will appear when activated.'));
     } else {
       const error = await auth.signIn(form.email, form.password);
-      if (error) setNotice(error); else navigate(destination);
+      if (error) setNotice(error); else setNotice('Checking your IHLink account permissions…');
     }
     setBusy(false);
   }
   const title = { signin: 'Sign in to IHLink Consult', register: 'Create an IHLink Consult account', reset: 'Reset your password', update: 'Choose a new password' }[mode];
   return <PageShell product="consult"><main className="mx-auto max-w-md px-6 py-16"><p className="font-bold text-orange-600">IHLink Consult</p><h1 className="mt-2 text-3xl font-black">{title}</h1>
-    {notice && <p role="status" className="mt-5 rounded-xl border bg-white p-3 text-sm">{notice}</p>}
+    {(notice || auth.authError) && <p role="status" className="mt-5 rounded-xl border bg-white p-3 text-sm">{auth.authError || notice}</p>}
     <form onSubmit={submit} className="mt-8 space-y-4">
       {mode === 'register' && <><input className={field} required placeholder="First name" value={form.firstName} onChange={e => setForm({ ...form, firstName: e.target.value })}/><input className={field} placeholder="Middle name" value={form.middleName} onChange={e => setForm({ ...form, middleName: e.target.value })}/><input className={field} required placeholder="Last name" value={form.lastName} onChange={e => setForm({ ...form, lastName: e.target.value })}/><input className={field} required type="tel" placeholder="Phone number" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })}/><select className={field} value={form.sex} onChange={e => setForm({ ...form, sex: e.target.value })}><option value="">Select sex</option><option value="male">Male</option><option value="female">Female</option></select></>}
       {mode !== 'update' && <input className={field} type="email" required placeholder="Email" autoComplete="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}/>}
