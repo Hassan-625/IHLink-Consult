@@ -15,9 +15,11 @@ type SupportProduct =
 
 export function SupportTicketForm({
   product,
+  onCreated,
   accentClass = "bg-royal-600 hover:bg-royal-700",
 }: {
   product: SupportProduct;
+  onCreated?: () => void;
   accentClass?: string;
 }) {
   const { user } = useAuth();
@@ -48,6 +50,7 @@ export function SupportTicketForm({
       if(error||!data?.ticket_number)throw error||new Error("No ticket number was returned. Check your support history before retrying.");
       setNotice(`Ticket ${data.ticket_number} was created successfully.`);
       setForm({subject:"",category:"general",priority:"normal",message:""});
+      onCreated?.();
     }catch(error){setNotice((error as any)?.message||"The request could not be saved. Please retry.");}
     finally{setBusy(false);}
   }
