@@ -19,8 +19,8 @@ export function ConsultNotifications() {
   useEffect(() => { void load(); }, [load]);
   async function markRead(item: Notice) {
     if (!supabase || !user) return;
-    const { error: failure } = await supabase.from('consult_notifications').update({ read_at: new Date().toISOString() }).eq('id', item.id).eq('user_id', user.id);
-    if (failure) setError(failure.message); else await load();
+    const { data: saved, error: failure } = await supabase.from('consult_notifications').update({ read_at: new Date().toISOString() }).eq('id', item.id).eq('user_id', user.id).select('id').maybeSingle();
+    if (failure || !saved) setError(failure?.message || 'This notification could not be updated. Reload and try again.'); else await load();
   }
   return <PageShell product="consult"><main className="mx-auto max-w-4xl px-6 py-12"><p className="font-bold text-orange-600">IHLink Consult</p><h1 className="mt-2 text-3xl font-black">Notifications</h1><p className="mt-2 text-muted">Updates about your Consult projects and requests.</p>
     {error && <p role="alert" className="mt-5 rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{error}</p>}
