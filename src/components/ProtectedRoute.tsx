@@ -2,8 +2,9 @@ import type {ReactNode} from 'react';
 import {Navigate,useLocation} from 'react-router-dom';
 import {useAuth} from '@/context/AuthContext';
 export function ProtectedRoute({children,requireServiceAccess=false,staffOnly=false,permission='view'}:{children:ReactNode;product?:string;requireServiceAccess?:boolean;staffOnly?:boolean;permission?:'view'|'edit'}){
- const {user,profile,adminAccess,serviceAccess,loading}=useAuth();const location=useLocation();
+ const {user,profile,adminAccess,serviceAccess,loading,authError,refreshAccount}=useAuth();const location=useLocation();
  if(loading)return <p role="status" className="p-8">Checking your account…</p>;
+ if(authError)return <section className="p-8"><p role="alert">{authError}</p><button className="mt-4 underline" onClick={refreshAccount}>Retry account check</button></section>;
  if(!user)return <Navigate to={'/signin?next='+encodeURIComponent(location.pathname+location.search)} replace/>;
  if(profile?.status!=='active')return <Navigate to="/access-denied" replace/>;
  const grant=adminAccess.find((x:{product:string})=>x.product==='consult');
