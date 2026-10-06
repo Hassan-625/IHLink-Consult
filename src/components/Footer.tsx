@@ -1,3 +1,4 @@
+import { PlatformLink } from './PlatformLink';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { Logo } from './Logo';
 import { productThemes, type ProductKey } from '@/lib/designTokens';
@@ -222,10 +223,10 @@ export function Footer({ product = 'corporate' }: FooterProps) {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm leading-5 opacity-70 hover:opacity-100 hover:text-white transition-all flex items-start gap-1 group break-words">
+                    <PlatformLink to={link.href} className="text-sm leading-5 opacity-70 hover:opacity-100 hover:text-white transition-all flex items-start gap-1 group break-words">
                       <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {link.label}
-                    </a>
+                    </PlatformLink>
                   </li>
                 ))}
               </ul>
