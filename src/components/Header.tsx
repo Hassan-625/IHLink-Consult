@@ -94,6 +94,7 @@ const productNavs: Record<ProductKey, NavItem[]> = {
     { label: 'Get a Quote', href: '/consult/quote' },
     { label: 'Hire Us', href: '/consult/hire' },
     { label: 'Operations', href: '/consult/operations' },
+    { label: 'Invoices', href: '/consult/invoices' },
     { label: 'Payments', href: '/consult/payments' },
     { label: 'Get in Touch', href: '/consult/get-in-touch' },
   ],
