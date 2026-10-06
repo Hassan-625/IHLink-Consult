@@ -16,16 +16,20 @@ export function ConsultAccount() {
   const [details, setDetails] = useState<Details>(empty);
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [appearance, setAppearance] = useState<'light'|'system'|'dark'>(() => (localStorage.getItem('ihlink-appearance') as 'light'|'system'|'dark') || 'system');
   useEffect(() => { document.documentElement.dataset.appearance = appearance; localStorage.setItem('ihlink-appearance', appearance); }, [appearance]);
   useEffect(() => {
+    setLoaded(false);
+    let cancelled = false;
     if (!supabase || !user) return;
     void supabase.from('profiles').select('first_name,middle_name,last_name,phone,sex,newsletter_opt_in').eq('id', user.id).single()
-      .then(({ data, error }) => error ? setNotice(error.message) : setDetails({ ...empty, ...data } as Details));
+      .then(({ data, error }) => { if (cancelled) return; if (error || !data) { setNotice(error?.message || 'Your profile could not be loaded. Reload to retry.'); return; } setDetails({ ...empty, ...data } as Details); setLoaded(true); });
+    return () => { cancelled = true; };
   }, [user]);
   async function save(event: FormEvent) {
     event.preventDefault();
-    if (!supabase || !user) return;
+    if (!supabase || !user || busy || !loaded) return;
     setBusy(true);
     const { data, error } = await supabase.from('profiles').update(details).eq('id', user.id).select('id').maybeSingle();
     setBusy(false);
@@ -39,7 +43,8 @@ export function ConsultAccount() {
       <Link to="/consult/notifications">Notifications</Link><Link to="/consult/portal">Client portal</Link>
     </nav>
     {notice && <p role="status" className="mt-5 rounded-xl border bg-white p-3 text-sm">{notice}</p>}
-    <Card className="mt-6"><form onSubmit={save} className="grid gap-4 sm:grid-cols-2">
+    {!loaded && !notice && <p role="status" className="mt-5">Loading your account details…</p>}
+    <Card className="mt-6"><form onSubmit={save} className="grid gap-4 sm:grid-cols-2"><fieldset disabled={!loaded || busy} className="contents">
       <label className="text-sm font-bold">First name<input required className={field} value={details.first_name || ''} onChange={e => setDetails({ ...details, first_name: e.target.value })}/></label>
       <label className="text-sm font-bold">Middle name<input className={field} value={details.middle_name || ''} onChange={e => setDetails({ ...details, middle_name: e.target.value })}/></label>
       <label className="text-sm font-bold">Last name<input required className={field} value={details.last_name || ''} onChange={e => setDetails({ ...details, last_name: e.target.value })}/></label>
@@ -48,7 +53,7 @@ export function ConsultAccount() {
       <label className="text-sm font-bold">Email<input className={field} value={user?.email || ''} readOnly aria-label="Email address"/></label>
       <label className="flex items-center gap-2 text-sm sm:col-span-2"><input type="checkbox" checked={Boolean(details.newsletter_opt_in)} onChange={e => setDetails({ ...details, newsletter_opt_in: e.target.checked })}/>Receive IHLink updates by email</label>
       <div className="sm:col-span-2"><Button disabled={busy}>{busy ? 'Saving…' : 'Save changes'}</Button></div>
-    </form></Card>
+    </fieldset></form></Card>
     {settings && <><Card className="mt-6"><h2 className="font-bold">Appearance</h2><p className="mt-2 text-sm text-muted">Choose how the standalone Consult workspace appears on this device.</p><div className="mt-4 flex flex-wrap gap-3">{(['light','system','dark'] as const).map(mode => <Button key={mode} type="button" variant={appearance===mode?'primary':'secondary'} onClick={() => setAppearance(mode)}>{mode[0].toUpperCase()+mode.slice(1)}</Button>)}</div></Card><Card className="mt-6"><h2 className="font-bold">Password and access</h2><p className="mt-2 text-sm text-muted">Your Consult access is managed through your IHLink account.</p><Link className="mt-4 inline-block font-bold text-orange-700" to="/reset-password">Reset password</Link></Card></>}
   </main></PageShell>;
 }
