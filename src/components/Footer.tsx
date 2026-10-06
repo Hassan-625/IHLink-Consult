@@ -144,7 +144,7 @@ const footerLinks: Record<ProductKey, { title: string; links: { label: string; h
         { label: 'Client Portal', href: '/consult/portal' },
         { label: 'Support', href: '/consult/support' }, { label: 'Contact', href: '/consult/contact' },
         { label: 'Sign In', href: '/signin' },
-        { label: 'IHLink Home', href: '/' },
+        { label: 'IHLink Home', href: 'https://ihlink-corporate.onrender.com' },
       ],
     },
   ],
@@ -173,7 +173,7 @@ const footerLinks: Record<ProductKey, { title: string; links: { label: string; h
       { label: 'Technical Support', href: '/engineering/support' }, { label: 'Client Workspace', href: '/engineering/dashboard' },
     ] },
     { title: 'Company', links: [
-      { label: 'IHLink Home', href: '/' }, { label: 'IHLink Consult', href: '/consult' },
+      { label: 'IHLink Home', href: 'https://ihlink-corporate.onrender.com' }, { label: 'IHLink Consult', href: '/consult' },
       { label: 'Contact', href: '/contact' }, { label: 'Terms', href: '/terms' },
     ] },
   ],
