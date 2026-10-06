@@ -27,9 +27,9 @@ export function ConsultAccount() {
     event.preventDefault();
     if (!supabase || !user) return;
     setBusy(true);
-    const { error } = await supabase.from('profiles').update(details).eq('id', user.id);
+    const { data, error } = await supabase.from('profiles').update(details).eq('id', user.id).select('id').maybeSingle();
     setBusy(false);
-    setNotice(error?.message || 'Consult account settings saved.');
+    setNotice(error?.message || (!data ? 'Your profile was not updated. Reload and try again.' : 'Consult account settings saved.'));
   }
   return <PageShell product="consult"><main className="mx-auto max-w-4xl px-6 py-12">
     <p className="font-bold text-orange-600">IHLink Consult</p>
