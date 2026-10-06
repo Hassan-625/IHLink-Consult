@@ -1,8 +1,7 @@
 import { WhatsAppIcon } from './WhatsAppIcon';
-import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { productThemes, type ProductKey } from '@/lib/designTokens';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { IHLinkContact } from '@/lib/contact';
 
 interface FooterProps {
@@ -116,7 +115,7 @@ const footerLinks: Record<ProductKey, { title: string; links: { label: string; h
         { label: 'Register School', href: '/schoolpro/register' },
         { label: 'Support', href: '/schoolpro/support' },
         { label: 'Sign In', href: '/signin' },
-        { label: 'IHLink Home', href: '/' },
+        { label: 'IHLink Home', href: 'https://ihlink-corporate.onrender.com' },
       ],
     },
   ],
@@ -223,34 +222,24 @@ export function Footer({ product = 'corporate' }: FooterProps) {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm leading-5 opacity-70 hover:opacity-100 hover:text-white transition-all flex items-start gap-1 group break-words">
+                    <a href={link.href} className="text-sm leading-5 opacity-70 hover:opacity-100 hover:text-white transition-all flex items-start gap-1 group break-words">
                       <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
 
-          <div className="col-span-1 min-w-0 lg:col-span-2">
-            <h4 className="text-sm font-bold text-white mb-3">Follow Us</h4>
-            <div className="flex gap-2">
-              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                  <Icon className="w-4 h-4 text-white" />
-                </a>
-              ))}
-            </div>
-          </div>
+
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <p className="text-xs opacity-60">© 2026 IHLink Co. Ltd. All rights reserved. RC — Lagos, Nigeria.</p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs opacity-60 sm:flex sm:items-center">
-            <Link to="/privacy" className="hover:opacity-100">Privacy Policy</Link>
-            <Link to="/terms" className="hover:opacity-100">Terms & Conditions</Link>
-            <Link to="/design-index" className="hover:opacity-100">Design Index</Link>
+            <a href="https://ihlink-corporate.onrender.com/privacy" className="hover:opacity-100">Privacy Policy</a>
+            <a href="https://ihlink-corporate.onrender.com/terms" className="hover:opacity-100">Terms & Conditions</a>
           </div>
         </div>
       </div>
